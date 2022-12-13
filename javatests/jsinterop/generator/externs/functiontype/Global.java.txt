@@ -1,0 +1,195 @@
+package jsinterop.generator.externs.functiontype;
+
+import jsinterop.annotations.JsFunction;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
+import jsinterop.base.JsConstructorFn;
+import jsinterop.base.JsPropertyMap;
+import jsinterop.generator.externs.natives.JsArray;
+
+@JsType(isNative = true, name = "goog.global", namespace = JsPackage.GLOBAL)
+public class Global {
+  @JsFunction
+  public interface BazFn {
+    boolean onInvoke(String p0);
+  }
+
+  @JsFunction
+  public interface FooFn {
+    boolean onInvoke(String p0);
+  }
+
+  @JsFunction
+  public interface Method1Fn {
+    boolean onInvoke(String p0);
+  }
+
+  @JsFunction
+  public interface Method2FooCallbackFn {
+    Object onInvoke(String p0);
+  }
+
+  @JsType(isNative = true, name = "?", namespace = JsPackage.GLOBAL)
+  public interface Method2FooCallbackUnionType {
+    @JsOverlay
+    static Global.Method2FooCallbackUnionType of(Object o) {
+      return Js.cast(o);
+    }
+
+    @JsOverlay
+    default Global.Method2FooCallbackFn asMethod2FooCallbackFn() {
+      return Js.cast(this);
+    }
+
+    @JsOverlay
+    default String asString() {
+      return Js.asString(this);
+    }
+
+    @JsOverlay
+    default boolean isMethod2FooCallbackFn() {
+      return (Object) this instanceof Global.Method2FooCallbackFn;
+    }
+
+    @JsOverlay
+    default boolean isString() {
+      return (Object) this instanceof String;
+    }
+  }
+
+  @JsFunction
+  public interface Method3FooCallbackFn {
+    @JsFunction
+    public interface P0Fn {
+      boolean onInvoke();
+    }
+
+    String onInvoke(Global.Method3FooCallbackFn.P0Fn p0);
+  }
+
+  @JsFunction
+  public interface Method4FooCallbackFn {
+    Object onInvoke();
+  }
+
+  @JsFunction
+  public interface Method5FooCallbackFn {
+    @JsType(isNative = true, name = "?", namespace = JsPackage.GLOBAL)
+    public interface P0Type {
+      @JsOverlay
+      static Global.Method5FooCallbackFn.P0Type create() {
+        return Js.uncheckedCast(JsPropertyMap.of());
+      }
+
+      @JsProperty
+      String getFoo();
+
+      @JsProperty
+      void setFoo(String foo);
+    }
+
+    @JsType(isNative = true, name = "?", namespace = JsPackage.GLOBAL)
+    public interface ReturnType {
+      @JsOverlay
+      static Global.Method5FooCallbackFn.ReturnType create() {
+        return Js.uncheckedCast(JsPropertyMap.of());
+      }
+
+      @JsProperty
+      double getFoo();
+
+      @JsProperty
+      void setFoo(double foo);
+    }
+
+    Global.Method5FooCallbackFn.ReturnType onInvoke(Global.Method5FooCallbackFn.P0Type p0);
+  }
+
+  @JsFunction
+  public interface Method6FooCallbackFn {
+    @JsFunction
+    public interface Fn {
+      double onInvoke();
+    }
+
+    @JsFunction
+    public interface P0Fn {
+      boolean onInvoke();
+    }
+
+    @JsFunction
+    public interface P1Fn {
+      String onInvoke();
+    }
+
+    Global.Method6FooCallbackFn.Fn onInvoke(
+        Global.Method6FooCallbackFn.P0Fn p0, Global.Method6FooCallbackFn.P1Fn p1);
+  }
+
+  @JsFunction
+  public interface Method7BarCallbackFn {
+    @JsFunction
+    public interface P0Fn {
+      double onInvoke();
+    }
+
+    void onInvoke(Global.Method7BarCallbackFn.P0Fn p0);
+  }
+
+  @JsFunction
+  public interface Method7FooCallbackFn {
+    @JsFunction
+    public interface P0Fn {
+      boolean onInvoke();
+    }
+
+    void onInvoke(Global.Method7FooCallbackFn.P0Fn p0);
+  }
+
+  @JsFunction
+  public interface MethodFooCallbackFn {
+    boolean onInvoke(String p0);
+  }
+
+  public static AliasedFunctionType bar;
+  public static JsArray<Global.BazFn> baz;
+  public static Global.FooFn foo;
+  public static JsConstructorFn<? extends SimpleClass> simpleClassCtor;
+
+  @JsOverlay
+  public static final void method(
+      Global.MethodFooCallbackFn fooCallback, Class<? extends SimpleClass> ctor) {
+    method(fooCallback, Js.asConstructorFn(ctor));
+  }
+
+  public static native void method(
+      Global.MethodFooCallbackFn fooCallback, JsConstructorFn<? extends SimpleClass> ctor);
+
+  public static native Global.Method1Fn method1(String foo);
+
+  @JsOverlay
+  public static final void method2(Global.Method2FooCallbackFn fooCallback) {
+    method2(Js.<Global.Method2FooCallbackUnionType>uncheckedCast(fooCallback));
+  }
+
+  public static native void method2(Global.Method2FooCallbackUnionType fooCallback);
+
+  @JsOverlay
+  public static final void method2(String fooCallback) {
+    method2(Js.<Global.Method2FooCallbackUnionType>uncheckedCast(fooCallback));
+  }
+
+  public static native void method3(Global.Method3FooCallbackFn fooCallback);
+
+  public static native void method4(Global.Method4FooCallbackFn fooCallback);
+
+  public static native void method5(Global.Method5FooCallbackFn fooCallback);
+
+  public static native void method6(Global.Method6FooCallbackFn fooCallback);
+
+  public static native void method7(
+      Global.Method7FooCallbackFn fooCallback, Global.Method7BarCallbackFn barCallback);
+}

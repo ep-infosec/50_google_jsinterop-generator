@@ -1,0 +1,161 @@
+package jsinterop.generator.externs.structuraltypes;
+
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
+import jsinterop.generator.externs.natives.JsArray;
+
+@JsType(isNative = true, namespace = JsPackage.GLOBAL)
+public class SimpleClass {
+  @JsType(isNative = true, name = "?", namespace = JsPackage.GLOBAL)
+  public interface ConsumeAliasedTypeNumberUnionType {
+    @JsOverlay
+    static SimpleClass.ConsumeAliasedTypeNumberUnionType of(Object o) {
+      return Js.cast(o);
+    }
+
+    @JsOverlay
+    default double asDouble() {
+      return Js.asDouble(this);
+    }
+
+    @JsOverlay
+    default String asString() {
+      return Js.asString(this);
+    }
+
+    @JsOverlay
+    default boolean isDouble() {
+      return (Object) this instanceof Double;
+    }
+
+    @JsOverlay
+    default boolean isString() {
+      return (Object) this instanceof String;
+    }
+  }
+
+  @JsType(isNative = true, name = "?", namespace = JsPackage.GLOBAL)
+  public interface ConsumeAndReturnAnonymousReturnType {
+    @JsOverlay
+    static SimpleClass.ConsumeAndReturnAnonymousReturnType create() {
+      return Js.uncheckedCast(JsPropertyMap.of());
+    }
+
+    @JsProperty
+    String getBar();
+
+    @JsProperty
+    void setBar(String bar);
+  }
+
+  @JsType(isNative = true, name = "?", namespace = JsPackage.GLOBAL)
+  public interface ConsumeAndReturnAnonymousTypeFooType {
+    @JsOverlay
+    static SimpleClass.ConsumeAndReturnAnonymousTypeFooType create() {
+      return Js.uncheckedCast(JsPropertyMap.of());
+    }
+
+    @JsProperty
+    double getFoo();
+
+    @JsProperty
+    void setFoo(double foo);
+  }
+
+  @JsType(isNative = true, name = "?", namespace = JsPackage.GLOBAL)
+  public interface ConsumeUnionTypeWithRecordTypeStringOrFooType {
+    @JsOverlay
+    static SimpleClass.ConsumeUnionTypeWithRecordTypeStringOrFooType create() {
+      return Js.uncheckedCast(JsPropertyMap.of());
+    }
+
+    @JsProperty
+    String getFoo();
+
+    @JsProperty
+    void setFoo(String foo);
+  }
+
+  @JsType(isNative = true, name = "?", namespace = JsPackage.GLOBAL)
+  public interface ConsumeUnionTypeWithRecordTypeStringOrFooUnionType {
+    @JsOverlay
+    static SimpleClass.ConsumeUnionTypeWithRecordTypeStringOrFooUnionType of(Object o) {
+      return Js.cast(o);
+    }
+
+    @JsOverlay
+    default SimpleClass.ConsumeUnionTypeWithRecordTypeStringOrFooType
+        asConsumeUnionTypeWithRecordTypeStringOrFooType() {
+      return Js.cast(this);
+    }
+
+    @JsOverlay
+    default String asString() {
+      return Js.asString(this);
+    }
+
+    @JsOverlay
+    default boolean isString() {
+      return (Object) this instanceof String;
+    }
+  }
+
+  @JsType(isNative = true, name = "?", namespace = JsPackage.GLOBAL)
+  public interface RecordTypeArrayFieldType {
+    @JsOverlay
+    static SimpleClass.RecordTypeArrayFieldType create() {
+      return Js.uncheckedCast(JsPropertyMap.of());
+    }
+
+    @JsProperty
+    double getFoo();
+
+    @JsProperty
+    void setFoo(double foo);
+  }
+
+  public JsArray<SimpleClass.RecordTypeArrayFieldType> recordTypeArray;
+
+  public native void consumeAliasedType(SimpleClass.ConsumeAliasedTypeNumberUnionType number);
+
+  @JsOverlay
+  public final void consumeAliasedType(String number) {
+    consumeAliasedType(Js.<SimpleClass.ConsumeAliasedTypeNumberUnionType>uncheckedCast(number));
+  }
+
+  @JsOverlay
+  public final void consumeAliasedType(double number) {
+    consumeAliasedType(Js.<SimpleClass.ConsumeAliasedTypeNumberUnionType>uncheckedCast(number));
+  }
+
+  public native SimpleClass.ConsumeAndReturnAnonymousReturnType consumeAndReturnAnonymousType();
+
+  public native SimpleClass.ConsumeAndReturnAnonymousReturnType consumeAndReturnAnonymousType(
+      SimpleClass.ConsumeAndReturnAnonymousTypeFooType foo);
+
+  public native FooBar consumeFooBar2(FooBar2 fooBar);
+
+  public native void consumeInnerStructuralType(InnerStructuralType foo);
+
+  @JsOverlay
+  public final void consumeUnionTypeWithRecordType(
+      SimpleClass.ConsumeUnionTypeWithRecordTypeStringOrFooType stringOrFoo) {
+    consumeUnionTypeWithRecordType(
+        Js.<SimpleClass.ConsumeUnionTypeWithRecordTypeStringOrFooUnionType>uncheckedCast(
+            stringOrFoo));
+  }
+
+  public native void consumeUnionTypeWithRecordType(
+      SimpleClass.ConsumeUnionTypeWithRecordTypeStringOrFooUnionType stringOrFoo);
+
+  @JsOverlay
+  public final void consumeUnionTypeWithRecordType(String stringOrFoo) {
+    consumeUnionTypeWithRecordType(
+        Js.<SimpleClass.ConsumeUnionTypeWithRecordTypeStringOrFooUnionType>uncheckedCast(
+            stringOrFoo));
+  }
+}
